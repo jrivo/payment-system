@@ -1,0 +1,26 @@
+version: "3.4"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db
+
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=api
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    ports:
+      - 5432:5432
+
+volumes:
+  db-data: {}
+  mongo-data: {}
