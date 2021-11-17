@@ -19,7 +19,6 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/transactions/1
 
-
 ###
 PUT http://localhost:3000/transactions/3
 Content-Type: application/json
@@ -28,3 +27,4 @@ Content-Type: application/json
   "currency": "$",
   "description": "Change currency"
 }
+###
