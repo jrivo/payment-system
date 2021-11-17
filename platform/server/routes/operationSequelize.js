@@ -1,28 +1,24 @@
 const { Router } = require("express");
 const {
-  Transaction: TransactionModel,
-  Merchant: MerchantModel,
+  Operation: OperationModel,
   History: HistoryModel,
 } = require("../models/sequelize/index");
 const router = Router();
 
 router.get("", (req, res) => {
-  TransactionModel.findAll({
+  OperationModel.findAll({
     where: req.query,
-    include: [
-      { model: MerchantModel, as: "merchant" },
-      { model: HistoryModel, as: "histories" },
-    ],
-  }).then((transactions) => {
-    res.json(transactions);
+    include: [{ model: HistoryModel, as: "histories" }],
+  }).then((Operations) => {
+    res.json(Operations);
   });
 });
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  TransactionModel.findByPk(id).then((transaction) => {
-    if (transaction) {
-      res.json(transaction);
+  OperationModel.findByPk(id).then((Operation) => {
+    if (Operation) {
+      res.json(Operation);
     } else {
       res.sendStatus(404);
     }
@@ -31,7 +27,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  TransactionModel.destroy({
+  OperationModel.destroy({
     where: {
       id: id,
     },
@@ -46,9 +42,9 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  TransactionModel.create(body)
-    .then((transaction) => {
-      res.status(201).json(transaction);
+  OperationModel.create(body)
+    .then((Operation) => {
+      res.status(201).json(Operation);
     })
     .catch((err) => {
       if (err.name === "SequelizeValidationError") {
@@ -63,10 +59,10 @@ router.post("", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  TransactionModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [transaction]]) => {
-      if (transaction) {
-        res.json(transaction);
+  OperationModel.update(body, { where: { id: id }, returning: true })
+    .then(([, [Operation]]) => {
+      if (Operation) {
+        res.json(Operation);
       } else {
         res.sendStatus(404);
       }

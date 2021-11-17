@@ -1,28 +1,30 @@
 const { Router } = require("express");
 const {
-  Transaction: TransactionModel,
   Merchant: MerchantModel,
-  History: HistoryModel,
+  User: UserModel,
+  Transaction: TransactionModel,
+  Credentials: CredentialsModel,
 } = require("../models/sequelize/index");
 const router = Router();
 
 router.get("", (req, res) => {
-  TransactionModel.findAll({
+  MerchantModel.findAll({
     where: req.query,
     include: [
-      { model: MerchantModel, as: "merchant" },
-      { model: HistoryModel, as: "histories" },
+      { model: UserModel, as: "users" },
+      { model: TransactionModel, as: "transactions" },
+      { model: CredentialsModel, as: "credentials" },
     ],
-  }).then((transactions) => {
-    res.json(transactions);
+  }).then((merchants) => {
+    res.json(merchants);
   });
 });
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  TransactionModel.findByPk(id).then((transaction) => {
-    if (transaction) {
-      res.json(transaction);
+  MerchantModel.findByPk(id).then((merchant) => {
+    if (merchant) {
+      res.json(merchant);
     } else {
       res.sendStatus(404);
     }
@@ -31,7 +33,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  TransactionModel.destroy({
+  MerchantModel.destroy({
     where: {
       id: id,
     },
@@ -46,9 +48,9 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  TransactionModel.create(body)
-    .then((transaction) => {
-      res.status(201).json(transaction);
+  MerchantModel.create(body)
+    .then((merchant) => {
+      res.status(201).json(merchant);
     })
     .catch((err) => {
       if (err.name === "SequelizeValidationError") {
@@ -63,10 +65,10 @@ router.post("", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  TransactionModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [transaction]]) => {
-      if (transaction) {
-        res.json(transaction);
+  MerchantModel.update(body, { where: { id: id }, returning: true })
+    .then(([, [merchant]]) => {
+      if (merchant) {
+        res.json(merchant);
       } else {
         res.sendStatus(404);
       }
