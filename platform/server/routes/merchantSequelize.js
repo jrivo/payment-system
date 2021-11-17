@@ -1,10 +1,20 @@
 const { Router } = require("express");
-const { Merchant: MerchantModel } = require("../models/sequelize/index");
+const {
+  Merchant: MerchantModel,
+  User: UserModel,
+  Transaction: TransactionModel,
+  Credentials: CredentialsModel,
+} = require("../models/sequelize/index");
 const router = Router();
 
 router.get("", (req, res) => {
   MerchantModel.findAll({
     where: req.query,
+    include: [
+      { model: UserModel, as: "users" },
+      { model: TransactionModel, as: "transactions" },
+      { model: CredentialsModel, as: "credentials" },
+    ],
   }).then((merchants) => {
     res.json(merchants);
   });
