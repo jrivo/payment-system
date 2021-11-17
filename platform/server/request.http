@@ -68,3 +68,33 @@ Content-Type: application/json
 
 ### 
 DELETE http://localhost:3000/merchants/1
+
+# Credentials requests
+
+# Merchant requests
+
+###
+GET http://localhost:3000/credentials/
+
+###
+POST http://localhost:3000/credentials/
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+###
+PUT http://localhost:3000/credentials/3
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+### 
+DELETE http://localhost:3000/credentials/1
