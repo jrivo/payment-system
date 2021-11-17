@@ -122,3 +122,66 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/history/1
+
+# Operation requests
+
+###
+GET http://localhost:3000/operation/
+
+###
+GET http://localhost:3000/operation/1
+
+###
+POST http://localhost:3000/operation
+Content-Type: application/json
+
+{
+  "type": "CAPTURED",
+  "amount": 50,
+  "status": "CREATED",
+  "date": "2021-11-17T08:26:53"
+}
+
+###
+DELETE http://localhost:3000/operation/1
+
+
+###
+PUT http://localhost:3000/operation/2
+Content-Type: application/json
+
+{
+  "status":"PENDING"
+}
+
+# User requests
+
+###
+GET http://localhost:3000/user/
+
+###
+GET http://localhost:3000/user/1
+
+###
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "test",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+###
+DELETE http://localhost:3000/user/1
+
+
+###
+PUT http://localhost:3000/user/1
+Content-Type: application/json
+
+{
+  "email":"test1@test.com"
+}
+
