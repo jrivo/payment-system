@@ -1,13 +1,17 @@
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+
 const TransactionHeader = ({ rowData }) => {
   console.log(rowData);
   return (
-    <thead>
-      <tr>
+    <TableHead>
+      <TableRow>
         {rowData?.map((column) => (
-          <th>{column}</th>
+          <TableCell>{column}</TableCell>
         ))}
-      </tr>
-    </thead>
+      </TableRow>
+    </TableHead>
   );
 };
 

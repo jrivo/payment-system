@@ -1,24 +1,24 @@
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+
 const TransactionTBody = ({ bodydata }) => {
   return (
-    <tbody>
+    <TableBody>
       {bodydata?.map((columnData) => (
         <TransactionRow columnData={columnData} />
       ))}
-    </tbody>
+    </TableBody>
   );
 };
 
 const TransactionRow = ({ columnData }) => {
   return (
-    <tr>
-      {/* {columnData?.map((column) => (
-        <td>{column}</td>
-      ))} */}
-
+    <TableRow>
       {Object.keys(columnData).map(function (key, index) {
-        return <td>{columnData[key]}</td>;
+        return <TableCell>{columnData[key]}</TableCell>;
       })}
-    </tr>
+    </TableRow>
   );
 };
 
