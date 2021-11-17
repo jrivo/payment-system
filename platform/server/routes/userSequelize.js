@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { where } = require("sequelize/types");
 const {
   User: UserModel,
   Merchant: MerchantModel,
