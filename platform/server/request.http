@@ -98,3 +98,27 @@ Content-Type: application/json
 
 ### 
 DELETE http://localhost:3000/credentials/1
+
+# History requests
+###
+
+GET http://localhost:3000/history/
+
+###
+
+GET http://localhost:3000/history/1
+
+###
+
+POST http://localhost:3000/history
+Content-Type: application/json
+
+{
+  "transaction_id": 1,
+  "status": "created",
+  "date": "2021-11-17T08:26:53"
+}
+
+###
+
+DELETE http://localhost:3000/history/1
