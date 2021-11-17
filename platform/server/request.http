@@ -1,3 +1,6 @@
+
+# Transaction requests
+
 GET http://localhost:3000/transactions/
 
 ###
@@ -28,3 +31,40 @@ Content-Type: application/json
   "currency": "$",
   "description": "Change currency"
 }
+
+# Merchant requests
+
+###
+GET http://localhost:3000/merchants/
+
+###
+POST http://localhost:3000/merchants/
+Content-Type: application/json
+
+{
+  "companyName": "name of the company",
+  "KBIS": "kbis value",
+  "firstName": "john",
+  "lastName": "max@test.fr",
+  "email": "john@email.com",
+  "address": "12 rue somewhere",
+  "phone": "0788565289",
+  "confirmationUrl": "confirmation url",
+  "cancellationUrl": " cancelation url",
+  "currency": "euro",
+  "notificationUrl": "notification url"
+}
+
+
+###
+PUT http://localhost:3000/merchants/3
+Content-Type: application/json
+
+{
+  "currency": "$",
+  "description": "Change currency"
+}
+
+
+### 
+DELETE http://localhost:3000/merchants/1
