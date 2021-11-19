@@ -4,6 +4,7 @@ class Transaction extends Model {}
 
 Transaction.init(
     {
+      _id:DataTypes.INTEGER,
         amount: DataTypes.INTEGER,
         description: DataTypes.STRING,
         currency: DataTypes.STRING,

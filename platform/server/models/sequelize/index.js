@@ -41,11 +41,17 @@ const denormalizeTransaction = (transaction) => {
       },
     ],
   }).then((transaction) => {
-    transaction = transaction.toJSON();
-    TransactionMongo.findOneAndReplace(
-      { _id: transaction.id },
-      { ...transaction, _id: transaction.id }
+    transaction = JSON.parse(JSON.stringify(transaction));
+    //need to replace transaction or delete it and create a new one
+    TransactionMongo.findOneAndUpdate(
+      { id: transaction.id },
+      { ...transaction, _id: transaction.id },
+      { upsert: true, new: true }
     );
+    // TransactionMongo.findOneAndReplace(
+    //   { _id: transaction.id },
+    //   { ...transaction, _id: transaction.id }
+    // );
   });
 };
 

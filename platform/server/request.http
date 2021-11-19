@@ -128,7 +128,7 @@ DELETE http://localhost:3000/history/1
 GET http://localhost:3000/operation/
 
 ###
-GET http://localhost:3000/operation/1
+GET http://localhost:3000/operation/2
 
 ###
 POST http://localhost:3000/operation
@@ -138,7 +138,8 @@ Content-Type: application/json
   "type": "CAPTURED",
   "amount": 50,
   "status": "CREATED",
-  "date": "2021-11-17T08:26:53"
+  "date": "2021-11-17T08:26:53",
+  "transactionId": 2
 }
 
 ###
