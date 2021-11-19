@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   Transaction: TransactionModel,
   Merchant: MerchantModel,
-  History: HistoryModel,
+  Operation: OperationModel,
 } = require("../models/sequelize/index");
 const router = Router();
 
@@ -11,7 +11,7 @@ router.get("", (req, res) => {
     where: req.query,
     include: [
       { model: MerchantModel, as: "merchant" },
-      { model: HistoryModel, as: "histories" },
+      { model: OperationModel, as: "operations" },
     ],
   }).then((transactions) => {
     res.json(transactions);
