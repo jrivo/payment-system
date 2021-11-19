@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const mustacheExpress = require("mustache-express");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
