@@ -25,6 +25,7 @@ Operation.belongsTo(Transaction, {
 });
 
 const denormalizeTransaction = (transaction) => {
+  console.log("AHAHAHAHH");
   Transaction.findByPk(transaction.id, {
     include: [
       {
@@ -43,14 +44,26 @@ const denormalizeTransaction = (transaction) => {
   }).then((transaction) => {
     transaction = JSON.parse(JSON.stringify(transaction));
     //need to replace transaction or delete it and create a new one
-    TransactionMongo.findOneAndUpdate(
-      { id: transaction.id },
-      { ...transaction, _id: transaction.id },
-      { upsert: true, new: true }
-    );
+    // TransactionMongo.findOneAndUpdate(
+    //   { _id: transaction.id },
+    //   { ...transaction, _id: transaction.id },
+    //   { upsert: true, new: true }
+    // );
+    console.log(transaction.id);
     // TransactionMongo.findOneAndReplace(
     //   { _id: transaction.id },
     //   { ...transaction, _id: transaction.id }
+    // );
+    TransactionMongo.deleteOne({ transaction_id: transaction.id });
+    new TransactionMongo({
+      _id: transaction.id,
+      transaction_id: transaction.id,
+      ...transaction,
+    }).save();
+    // TransactionMongo.replaceOne(
+    //   { transaction_id: transaction.id },
+    //   { ...transaction, _id: transaction.id },
+    //   { upsert: true }
     // );
   });
 };
@@ -66,7 +79,9 @@ const denormalizeMerchantTransaction = (merchant) => {
 };
 
 const denormalizeOperationTransaction = (operation) => {
+  console.log("before denormalizeOperation");
   denormalizeTransaction({ id: operation.transactionId });
+  console.log("after denormalizeOperation");
 };
 
 const generateCredentials = (merchant, options) => {
@@ -80,6 +95,7 @@ const generateCredentials = (merchant, options) => {
 };
 
 const generateHistory = (operation) => {
+  console.log("generate history");
   History.create({
     operationId: operation.id,
     status: operation.status,
@@ -91,10 +107,10 @@ const generateHistory = (operation) => {
 Transaction.addHook("afterCreate", denormalizeTransaction);
 Merchant.addHook("afterUpdate", denormalizeMerchantTransaction);
 Merchant.addHook("afterUpdate", generateCredentials);
-Operation.addHook("afterCreate", denormalizeOperationTransaction);
-Operation.addHook("afterUpdate", denormalizeOperationTransaction);
 Operation.addHook("afterCreate", generateHistory);
 Operation.addHook("afterUpdate", generateHistory);
+Operation.addHook("afterCreate", denormalizeOperationTransaction);
+Operation.addHook("afterUpdate", denormalizeOperationTransaction);
 
 module.exports.User = User;
 module.exports.Merchant = Merchant;

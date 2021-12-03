@@ -4,7 +4,7 @@
 GET http://localhost:3000/transactions/
 
 ###
-GET http://localhost:3000/transactions/1
+GET http://localhost:3000/transactions/11
 
 ###
 POST http://localhost:3000/transactions
@@ -23,12 +23,12 @@ Content-Type: application/json
 DELETE http://localhost:3000/transactions/1
 
 ###
-PUT http://localhost:3000/transactions/3
+PUT http://localhost:3000/transactions/11
 Content-Type: application/json
 
 {
   "currency": "$",
-  "description": "Change currency"
+  "description": "Change MONEY"
 }
 
 # Merchant requests
@@ -128,7 +128,7 @@ DELETE http://localhost:3000/history/1
 GET http://localhost:3000/operation/
 
 ###
-GET http://localhost:3000/operation/2
+GET http://localhost:3000/operation/35
 
 ###
 POST http://localhost:3000/operation
@@ -139,7 +139,7 @@ Content-Type: application/json
   "amount": 50,
   "status": "CREATED",
   "date": "2021-11-17T08:26:53",
-  "transactionId": 2
+  "transactionId": 11
 }
 
 ###
@@ -147,7 +147,7 @@ DELETE http://localhost:3000/operation/1
 
 
 ###
-PUT http://localhost:3000/operation/2
+PUT http://localhost:3000/operation/31
 Content-Type: application/json
 
 {
