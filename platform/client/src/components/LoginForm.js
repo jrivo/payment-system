@@ -7,14 +7,40 @@ import {
   TextField,
 } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useState } from "react";
 
-// const useStyles = makeStyles((theme) => {
-//   mainContainer: {
-//     width: "100%";
-//   }
-// });
+const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const SignupForm = () => {
+  // POST http://localhost:3000/user/login
+  // Content-Type: application/json
+
+  // {
+  //   "email": "johny@test.com",
+  //   "password": "test2"
+
+  // }
+  const handleSubmit = async () => {
+    fetch("http://localhost:3000/user/login", {
+      method: "POST",
+      body: JSON.stringify({ email: email, password: password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        // console.log(res);
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Grid
       container
@@ -30,6 +56,8 @@ const SignupForm = () => {
     >
       <Grid item md={6}>
         <Card>
+          {email} <br />
+          {password} <br />
           <CardContent>
             <Box component="form" noValidate autoComplete="off">
               <Grid item container spacing={1} justify="center">
@@ -39,6 +67,10 @@ const SignupForm = () => {
                     label="email"
                     name="email"
                     variant="outlined"
+                    value={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
                     style={{ width: "80%" }}
                   />
                 </Grid>
@@ -47,41 +79,19 @@ const SignupForm = () => {
                     id="password"
                     label="password"
                     name="password"
+                    type="password"
                     variant="outlined"
-                    style={{ width: "80%" }}
-                  />
-                </Grid>
-                {/* add repeated password */}
-                <Grid item xs={12} sm={12} md={12}>
-                  <TextField
-                    id="firstName"
-                    label="first name"
-                    name="firstName"
-                    variant="outlined"
+                    value={password}
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
                     style={{ width: "80%" }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
-                  <TextField
-                    id="lastName"
-                    label="last name"
-                    name="lastName"
-                    variant="outlined"
-                    style={{ width: "80%" }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={12}>
-                  <TextField
-                    id="company-name"
-                    label="Company name"
-                    name="company-name"
-                    variant="outlined"
-                    style={{ width: "80%" }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} sm={12} md={12}>
-                  <Button variant="contained">Sign up</Button>
+                  <Button variant="contained" onClick={() => handleSubmit()}>
+                    Login
+                  </Button>
                 </Grid>
               </Grid>
             </Box>
@@ -92,7 +102,7 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;
 
 // - Un nom de société
 // - Un KBIS
