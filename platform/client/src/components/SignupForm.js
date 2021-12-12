@@ -1,4 +1,11 @@
-import { Card, CardContent, Grid, makeStyles, TextField } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  makeStyles,
+  TextField,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 
 // const useStyles = makeStyles((theme) => {
@@ -16,8 +23,9 @@ const SignupForm = () => {
       spacing={1}
       style={{
         width: "100%",
-        backgroundColor: "red",
+        height: "100vh",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Grid item md={6}>
@@ -40,6 +48,7 @@ const SignupForm = () => {
                     label="password"
                     name="password"
                     variant="outlined"
+                    style={{ width: "80%" }}
                   />
                 </Grid>
                 {/* add repeated password */}
@@ -49,6 +58,7 @@ const SignupForm = () => {
                     label="first name"
                     name="firstName"
                     variant="outlined"
+                    style={{ width: "80%" }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
@@ -57,6 +67,7 @@ const SignupForm = () => {
                     label="last name"
                     name="lastName"
                     variant="outlined"
+                    style={{ width: "80%" }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
@@ -65,10 +76,12 @@ const SignupForm = () => {
                     label="Company name"
                     name="company-name"
                     variant="outlined"
+                    style={{ width: "80%" }}
                   />
                 </Grid>
+
                 <Grid item xs={12} sm={12} md={12}>
-                  <TextField id="" label="" name="" variant="outlined" />
+                  <Button variant="contained">Sign up</Button>
                 </Grid>
               </Grid>
             </Box>

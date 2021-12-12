@@ -1,7 +1,23 @@
 
-# Transaction requests
+# Login
 
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "email": "johny@test.com",
+  "password": "test2"
+
+}
+
+
+# Transaction requests
+###
 GET http://localhost:3000/transactions/
+
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG55QHRlc3QuY29tIiwiZmlyc3ROYW1lIjoiSm9obnkiLCJpYXQiOjE2MzkzMjI3MDJ9.UJHtS-JYMN05lK3ZczdDPwxnAlLjYk6bcFpweaKIggo
+
 
 ###
 GET http://localhost:3000/transactions/1
@@ -166,11 +182,13 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
-  "password": "test",
-  "firstName": "John",
-  "lastName": "Doe"
+  "email": "johny@test.com",
+  "password": "test2",
+  "firstName": "Johny",
+  "lastName": "Donny"
 }
+
+
 
 ###
 DELETE http://localhost:3000/user/1
