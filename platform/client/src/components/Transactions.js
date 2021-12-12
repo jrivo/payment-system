@@ -11,12 +11,12 @@ import data from "../data/data";
 
 export default function Orders() {
   return (
-    <React.Fragment>
+    <>
       <Title>Recent Transactions</Title>
       <TransactionTable data={data} />
       <Link color="primary" href="#" sx={{ mt: 3 }}>
         See more transactions
       </Link>
-    </React.Fragment>
+    </>
   );
 }
