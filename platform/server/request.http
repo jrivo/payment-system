@@ -1,0 +1,124 @@
+
+# Transaction requests
+
+GET http://localhost:3000/transactions/
+
+###
+GET http://localhost:3000/transactions/1
+
+###
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+  "amount": 20,
+  "description": "description",
+  "currency": "€",
+  "client_first_name": "Toto",
+  "client_last_name": "Dau",
+  "client_email": "max@test.fr"
+}
+
+###
+DELETE http://localhost:3000/transactions/1
+
+
+###
+PUT http://localhost:3000/transactions/3
+Content-Type: application/json
+
+{
+  "currency": "$",
+  "description": "Change currency"
+}
+
+# Merchant requests
+
+###
+GET http://localhost:3000/merchants/
+
+###
+POST http://localhost:3000/merchants/
+Content-Type: application/json
+
+{
+  "companyName": "name of the company",
+  "KBIS": "kbis value",
+  "firstName": "john",
+  "lastName": "max@test.fr",
+  "email": "john@email.com",
+  "address": "12 rue somewhere",
+  "phone": "0788565289",
+  "confirmationUrl": "confirmation url",
+  "cancellationUrl": " cancelation url",
+  "currency": "euro",
+  "notificationUrl": "notification url"
+}
+
+
+###
+PUT http://localhost:3000/merchants/3
+Content-Type: application/json
+
+{
+  "currency": "$",
+  "description": "Change currency"
+}
+
+
+### 
+DELETE http://localhost:3000/merchants/1
+
+# Credentials requests
+
+# Merchant requests
+
+###
+GET http://localhost:3000/credentials/
+
+###
+POST http://localhost:3000/credentials/
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+###
+PUT http://localhost:3000/credentials/3
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+### 
+DELETE http://localhost:3000/credentials/1
+
+# History requests
+###
+
+GET http://localhost:3000/history/
+
+###
+
+GET http://localhost:3000/history/1
+
+###
+
+POST http://localhost:3000/history
+Content-Type: application/json
+
+{
+  "transaction_id": 1,
+  "status": "created",
+  "date": "2021-11-17T08:26:53"
+}
+
+###
+
+DELETE http://localhost:3000/history/1
