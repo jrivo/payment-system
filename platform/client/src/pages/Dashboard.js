@@ -19,7 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "../components/ListItems";
 import Chart from "../components/Chart";
-import Deposits from "../components/Deposits";
+import OverviewCard from "../components/OverviewCard";
 import Transactions from "../components/Transactions";
 
 function Copyright(props) {
@@ -178,7 +178,6 @@ function DashboardContent() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -188,7 +187,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <OverviewCard />
                 </Paper>
               </Grid>
               {/* Recent Transactions */}
