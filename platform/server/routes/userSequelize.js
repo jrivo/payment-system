@@ -78,7 +78,11 @@ router.post("/login", async (req, res) => {
         { email: user.email, firstName: user.firstName },
         process.env.SECRET
       );
-      res.status(200).json({ token: token });
+      res.status(200).json({
+        token: token,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      });
     } else {
       res.status(400).json({ error: "password incorrect" });
     }

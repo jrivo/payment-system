@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useContext, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from "../components/ListItems";
 import Chart from "../components/Chart";
 import OverviewCard from "../components/OverviewCard";
 import Transactions from "../components/Transactions";
+import Context from "../Context";
 
 function Copyright(props) {
   return (
@@ -89,10 +90,15 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const { user, setUser } = useContext(Context);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  // useEffect(() => {
+  //   setUser({first"amine"});
+  // }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -126,6 +132,16 @@ function DashboardContent() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                {localStorage.getItem("fisrtName")}
+              </Typography>
+
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>

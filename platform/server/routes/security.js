@@ -16,7 +16,11 @@ router.post("/login", (req, res) => {
       bcrypt.compare(body.password, user.password).then((isMatch) => {
         if (isMatch) {
           createToken(user).then((token) => {
-            res.json({ token: token });
+            res.json({
+              token: token,
+              firstName: firstName,
+              lastName: lastName,
+            });
           });
         } else {
           res.status(400).json({

@@ -7,20 +7,17 @@ import {
   TextField,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import Context from "../Context";
+import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // POST http://localhost:3000/user/login
-  // Content-Type: application/json
-
-  // {
   //   "email": "johny@test.com",
   //   "password": "test2"
 
-  // }
   const handleSubmit = async () => {
     fetch("http://localhost:3000/user/login", {
       method: "POST",
@@ -30,11 +27,20 @@ const LoginForm = () => {
       },
     })
       .then((res) => {
-        // console.log(res);
         return res.json();
       })
       .then((res) => {
         console.log(res);
+        setUser({
+          token: res.token,
+          firstName: res.firstName,
+          lastName: res.lastName,
+        });
+        localStorage.setItem("fisrtName", res.firstName);
+        localStorage.setItem("lastName", res.lastName);
+        localStorage.setItem("token", res.token);
+
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -56,8 +62,8 @@ const LoginForm = () => {
     >
       <Grid item md={6}>
         <Card>
-          {email} <br />
-          {password} <br />
+          {/* {email} <br />
+          {password} <br /> */}
           <CardContent>
             <Box component="form" noValidate autoComplete="off">
               <Grid item container spacing={1} justify="center">
