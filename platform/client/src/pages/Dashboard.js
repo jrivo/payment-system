@@ -92,13 +92,56 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const { user, setUser } = useContext(Context);
   const [open, setOpen] = useState(true);
+  const [data, setData] = useState([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  // useEffect(() => {
-  //   setUser({first"amine"});
-  // }, []);
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    fetch("http://localhost:3000/transactions/", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log("transactions res");
+        console.log(res);
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        // {
+        //   type: "Charge",
+        //   amount: 100,
+        //   description: "money",
+        //   date: "02-11-2021",
+        // },
+        setData(
+          res.map((item) => {
+            const date = new Date(item.createdAt);
+            const options = {
+              // weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+
+            return {
+              type: "unavailable",
+              amount: item.amount,
+              description: item.description,
+              date: date.toLocaleTimeString("fr-FR", options),
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log("transaction error");
+        console.log(err);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -209,7 +252,7 @@ function DashboardContent() {
               {/* Recent Transactions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Transactions />
+                  <Transactions data={data} />
                 </Paper>
               </Grid>
             </Grid>
