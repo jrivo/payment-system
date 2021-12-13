@@ -25,6 +25,10 @@ const TransactionSchema = new Mongoose.Schema({
     type: String,
     required: true,
   },
+  transaction_id: {
+    type: Number,
+    required: true,
+  },
   merchant: Array,
   operations: Array,
 });
