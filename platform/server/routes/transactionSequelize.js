@@ -46,8 +46,12 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  TransactionModel.create(body)
+  TransactionModel.create({ ...body })
     .then((transaction) => {
+      console.log("------------------");
+      console.log(transaction.dataValues);
+      console.log("******************");
+
       res.status(201).json(transaction);
     })
     .catch((err) => {

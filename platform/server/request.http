@@ -6,8 +6,8 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-  "email": "johny@test.com",
-  "password": "test2"
+  "email": "amine@gmail.com",
+  "password": "amine"
 
 }
 
@@ -15,8 +15,7 @@ Content-Type: application/json
 # Transaction requests
 ###
 GET http://localhost:3000/transactions/
-
-Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG55QHRlc3QuY29tIiwiZmlyc3ROYW1lIjoiSm9obnkiLCJpYXQiOjE2MzkzMjI3MDJ9.UJHtS-JYMN05lK3ZczdDPwxnAlLjYk6bcFpweaKIggo
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
 
 
 ###
@@ -25,6 +24,7 @@ GET http://localhost:3000/transactions/1
 ###
 POST http://localhost:3000/transactions
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
 
 {
   "amount": 20,
@@ -182,10 +182,10 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-  "email": "johny@test.com",
-  "password": "test2",
-  "firstName": "Johny",
-  "lastName": "Donny"
+  "email": "amine@gmail.com",
+  "password": "amine",
+  "firstName": "amine",
+  "lastName": "zn"
 }
 
 
