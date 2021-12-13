@@ -10,7 +10,7 @@ const {Promise} = require("mongoose");
 new Scrapper({
     url: "http://api.exchangeratesapi.io/v1/latest",
     query: {
-        access_key: "61b6fb201a51ca85a56b084f80d3fbb0",
+        access_key: process.env.SCRAPPER_CURRENCY_API_KEY,
         symbols: "USD,EUR,GBP,CNY,RUB"
     },
 
