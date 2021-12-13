@@ -19,33 +19,6 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [companyName, setCompanyName] = useState("");
 
-  //   POST http://localhost:3000/user
-  // Content-Type: application/json
-
-  // {
-  //   "email": "johny@test.com",
-  //   "password": "test2",
-  //   "firstName": "Johny",
-  //   "lastName": "Donny"
-  // }
-
-  // POST http://localhost:3000/merchants/
-  // Content-Type: application/json
-
-  // {
-  //   "companyName": "name of the company",
-  //   "KBIS": "kbis value",
-  //   "firstName": "john",
-  //   "lastName": "max@test.fr",
-  //   "email": "john@email.com",
-  //   "address": "12 rue somewhere",
-  //   "phone": "0788565289",
-  //   "confirmationUrl": "confirmation url",
-  //   "cancellationUrl": " cancelation url",
-  //   "currency": "euro",
-  //   "notificationUrl": "notification url"
-  // }
-
   const handleSubmit = () => {
     fetch("http://localhost:3000/user", {
       method: "POST",
@@ -67,13 +40,35 @@ const SignupForm = () => {
       .then((res) => {
         console.log("user res json");
         console.log(res);
+
+        fetch("http://localhost:3000/user/login", {
+          method: "POST",
+          body: JSON.stringify({ email: email, password: password }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((res) => {
+            console.log(res);
+            localStorage.setItem("fisrtName", res.firstName);
+            localStorage.setItem("lastName", res.lastName);
+            localStorage.setItem("token", res.token);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
 
     fetch("http://localhost:3000/merchants/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
+
       body: JSON.stringify({
         companyName: companyName,
         KBIS: "",
@@ -229,15 +224,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-// - Un nom de société
-// - Un KBIS
-// - Des informations de contact
-// - Une URL de redirection pour confirmation
-// - Une URL de redirection pour annulation
-// - Une devise de reversement
-
-// email: DataTypes.STRING,
-// password: DataTypes.STRING,
-// firstName: DataTypes.STRING,
-// lastName: DataTypes.STRING,

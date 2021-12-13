@@ -9,7 +9,7 @@ import Title from "./Title";
 import TransactionTable from "./TransactionTable";
 import data from "../data/data";
 
-export default function Orders() {
+const Transactions = ({ data }) => {
   return (
     <>
       <Title>Recent Transactions</Title>
@@ -19,4 +19,6 @@ export default function Orders() {
       </Link>
     </>
   );
-}
+};
+
+export default Transactions;

@@ -9,7 +9,7 @@ const TransactionTable = ({ data }) => {
   return (
     <Table size="small">
       <TransactionHeader
-        rowData={data && data.length > 0 && Object.keys(data[0])}
+        rowData={data && data.length > 0 ? Object.keys(data[0]) : []}
       />
       <TransactionTBody bodydata={data} />
     </Table>

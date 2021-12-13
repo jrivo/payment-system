@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mustacheExpress = require("mustache-express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("./lib/mongo");
 
 const app = express();
@@ -17,17 +18,20 @@ const OperationRouter = require("./routes/operationSequelize");
 const SecurityRouter = require("./routes/security");
 const verifyJwt = require("./middlewares/verifyJwt");
 
+app.use(cors());
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 // app.use(express.urlencoded());
 app.use(SecurityRouter);
 app.use("/user", UserRouter);
