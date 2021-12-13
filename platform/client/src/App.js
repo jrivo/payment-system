@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Transactions from "./components/Transactions";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Payments from "./pages/Payments";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Context from "./Context";
+import { useMemo, useState } from "react";
 
 function App() {
+  const [user, setUser] = useState({
+    firstName: "default",
+    lastName: "poo",
+    token: "",
+  });
+  const value = useMemo(
+    () => ({
+      user,
+      setUser,
+    }),
+    [user]
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider value={value}>
+      <Router>
+        <Routes>
+          <Route index element={<Dashboard />} />
+          <Route path="/payments" element={<Payments />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+        </Routes>
+      </Router>
+    </Context.Provider>
   );
 }
 

@@ -1,7 +1,26 @@
-GET http://localhost:3000/transactions/
+
+# Login
 
 ###
-GET http://localhost:3000/transactions/1
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "email": "johny@test.com",
+  "password": "test2"
+
+}
+
+
+# Transaction requests
+###
+GET http://localhost:3000/transactions/
+
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG55QHRlc3QuY29tIiwiZmlyc3ROYW1lIjoiSm9obnkiLCJpYXQiOjE2MzkzMjI3MDJ9.UJHtS-JYMN05lK3ZczdDPwxnAlLjYk6bcFpweaKIggo
+
+
+###
+GET http://localhost:3000/transactions/11
 
 ###
 POST http://localhost:3000/transactions
@@ -19,9 +38,41 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/transactions/1
 
+###
+PUT http://localhost:3000/transactions/11
+Content-Type: application/json
+
+{
+  "currency": "$",
+  "description": "Change MONEY"
+}
+
+# Merchant requests
 
 ###
-PUT http://localhost:3000/transactions/3
+GET http://localhost:3000/merchants/
+
+###
+POST http://localhost:3000/merchants/
+Content-Type: application/json
+
+{
+  "companyName": "name of the company",
+  "KBIS": "kbis value",
+  "firstName": "john",
+  "lastName": "max@test.fr",
+  "email": "john@email.com",
+  "address": "12 rue somewhere",
+  "phone": "0788565289",
+  "confirmationUrl": "confirmation url",
+  "cancellationUrl": " cancelation url",
+  "currency": "euro",
+  "notificationUrl": "notification url"
+}
+
+
+###
+PUT http://localhost:3000/merchants/3
 Content-Type: application/json
 
 {
@@ -29,6 +80,41 @@ Content-Type: application/json
   "description": "Change currency"
 }
 
+
+### 
+DELETE http://localhost:3000/merchants/1
+
+# Credentials requests
+
+# Merchant requests
+
+###
+GET http://localhost:3000/credentials/
+
+###
+POST http://localhost:3000/credentials/
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+###
+PUT http://localhost:3000/credentials/3
+Content-Type: application/json
+
+{
+  "clientToken": "the token ",
+  "clientSecret": "shhhhh ;)"
+}
+
+
+### 
+DELETE http://localhost:3000/credentials/1
+
+# History requests
 ###
 
 GET http://localhost:3000/history/
@@ -51,4 +137,69 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/history/1
+
+# Operation requests
+
+###
+GET http://localhost:3000/operation/
+
+###
+GET http://localhost:3000/operation/35
+
+###
+POST http://localhost:3000/operation
+Content-Type: application/json
+
+{
+  "type": "CAPTURED",
+  "amount": 50,
+  "status": "CREATED",
+  "date": "2021-11-17T08:26:53",
+  "transactionId": 11
+}
+
+###
+DELETE http://localhost:3000/operation/1
+
+
+###
+PUT http://localhost:3000/operation/31
+Content-Type: application/json
+
+{
+  "status":"PENDING"
+}
+
+# User requests
+
+###
+GET http://localhost:3000/user/
+
+###
+GET http://localhost:3000/user/1
+
+###
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "email": "johny@test.com",
+  "password": "test2",
+  "firstName": "Johny",
+  "lastName": "Donny"
+}
+
+
+
+###
+DELETE http://localhost:3000/user/1
+
+
+###
+PUT http://localhost:3000/user/1
+Content-Type: application/json
+
+{
+  "email":"test1@test.com"
+}
 

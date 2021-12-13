@@ -1,27 +1,30 @@
 const { Router } = require("express");
 const {
-  History: HistoryModel,
+  Merchant: MerchantModel,
+  User: UserModel,
   Transaction: TransactionModel,
-  Operation: OperationModel,
+  Credentials: CredentialsModel,
 } = require("../models/sequelize/index");
 const router = Router();
 
 router.get("", (req, res) => {
-  HistoryModel.findAll({
+  MerchantModel.findAll({
     where: req.query,
     include: [
-      { model: OperationModel, as: "operation" },
+      { model: UserModel, as: "users" },
+      { model: TransactionModel, as: "transactions" },
+      { model: CredentialsModel, as: "credentials" },
     ],
-  }).then((history) => {
-    res.json(history);
+  }).then((merchants) => {
+    res.json(merchants);
   });
 });
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  HistoryModel.findByPk(id).then((history) => {
-    if (history) {
-      res.json(history);
+  MerchantModel.findByPk(id).then((merchant) => {
+    if (merchant) {
+      res.json(merchant);
     } else {
       res.sendStatus(404);
     }
@@ -30,7 +33,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  HistoryModel.destroy({
+  MerchantModel.destroy({
     where: {
       id: id,
     },
@@ -45,9 +48,9 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  HistoryModel.create(body)
-    .then((history) => {
-      res.status(201).json(history);
+  MerchantModel.create(body)
+    .then((merchant) => {
+      res.status(201).json(merchant);
     })
     .catch((err) => {
       if (err.name === "SequelizeValidationError") {
@@ -62,10 +65,10 @@ router.post("", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  HistoryModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [history]]) => {
-      if (history) {
-        res.json(history);
+  MerchantModel.update(body, { where: { id: id }, returning: true })
+    .then(([, [merchant]]) => {
+      if (merchant) {
+        res.json(merchant);
       } else {
         res.sendStatus(404);
       }

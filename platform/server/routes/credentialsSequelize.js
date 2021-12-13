@@ -1,27 +1,24 @@
 const { Router } = require("express");
 const {
-  History: HistoryModel,
-  Transaction: TransactionModel,
-  Operation: OperationModel,
+  Credentials: CredentialsModel,
+  Merchant: MerchantModel,
 } = require("../models/sequelize/index");
 const router = Router();
 
 router.get("", (req, res) => {
-  HistoryModel.findAll({
+  CredentialsModel.findAll({
     where: req.query,
-    include: [
-      { model: OperationModel, as: "operation" },
-    ],
-  }).then((history) => {
-    res.json(history);
+    include: [{ model: MerchantModel, as: "merchant" }],
+  }).then((credentials) => {
+    res.json(credentials);
   });
 });
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  HistoryModel.findByPk(id).then((history) => {
-    if (history) {
-      res.json(history);
+  CredentialsModel.findByPk(id).then((credentials) => {
+    if (credentials) {
+      res.json(credentials);
     } else {
       res.sendStatus(404);
     }
@@ -30,7 +27,7 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  HistoryModel.destroy({
+  CredentialsModel.destroy({
     where: {
       id: id,
     },
@@ -45,9 +42,9 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  HistoryModel.create(body)
-    .then((history) => {
-      res.status(201).json(history);
+  CredentialsModel.create(body)
+    .then((credentials) => {
+      res.status(201).json(credentials);
     })
     .catch((err) => {
       if (err.name === "SequelizeValidationError") {
@@ -62,10 +59,10 @@ router.post("", (req, res) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  HistoryModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [history]]) => {
-      if (history) {
-        res.json(history);
+  CredentialsModel.update(body, { where: { id: id }, returning: true })
+    .then(([, [credentials]]) => {
+      if (credentials) {
+        res.json(credentials);
       } else {
         res.sendStatus(404);
       }
