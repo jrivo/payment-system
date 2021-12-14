@@ -19,6 +19,17 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5l
 
 
 ###
+POST http://localhost:3000/payment
+{
+    "name": "",
+    "card_number": "",
+    "expiration_date": "",
+    "csv": "",
+    "redirection_id": ""
+}
+
+
+###
 GET http://localhost:3000/transactions/11
 
 ###
@@ -33,8 +44,11 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5l
   "client_first_name": "Toto",
   "client_last_name": "Dau",
   "client_email": "max@test.fr",
-  "type": "payment" // can be a payment or a refund
+  "type": "payment" 
+
 }
+
+# the "type" in transaction can be a payment or a refund
 
 ###
 DELETE http://localhost:3000/transactions/1
