@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useContext, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -19,8 +19,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "../components/ListItems";
 import Chart from "../components/Chart";
-import Deposits from "../components/Deposits";
+import OverviewCard from "../components/OverviewCard";
 import Transactions from "../components/Transactions";
+import Context from "../Context";
 
 function Copyright(props) {
   return (
@@ -89,10 +90,58 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const { user, setUser } = useContext(Context);
+  const [open, setOpen] = useState(true);
+  const [data, setData] = useState([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    fetch("http://localhost:3000/transactions/", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log("transactions res");
+        console.log(res);
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        // {
+        //   type: "Charge",
+        //   amount: 100,
+        //   description: "money",
+        //   date: "02-11-2021",
+        // },
+        setData(
+          res.map((item) => {
+            const date = new Date(item.createdAt);
+            const options = {
+              // weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            };
+
+            return {
+              type: "unavailable",
+              amount: item.amount,
+              description: item.description,
+              date: date.toLocaleTimeString("fr-FR", options),
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log("transaction error");
+        console.log(err);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -126,6 +175,16 @@ function DashboardContent() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                {localStorage.getItem("fisrtName")}
+              </Typography>
+
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -178,7 +237,6 @@ function DashboardContent() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -188,13 +246,13 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <OverviewCard />
                 </Paper>
               </Grid>
               {/* Recent Transactions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Transactions />
+                  <Transactions data={data} />
                 </Paper>
               </Grid>
             </Grid>

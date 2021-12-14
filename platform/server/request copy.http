@@ -1,0 +1,99 @@
+
+# Transaction requests
+
+GET http://localhost:3000/transactions/
+
+###
+GET http://localhost:3000/transactions/11
+
+###
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+  "amount": 20,
+  "description": "description",
+  "currency": "€",
+  "client_first_name": "Toto",
+  "client_last_name": "Dau",
+  "client_email": "max@test.fr"
+}
+
+###
+DELETE http://localhost:3000/transactions/1
+
+
+
+
+###
+PUT http://localhost:3000/transactions/14
+Content-Type: application/json
+
+{
+  "currency": "$",
+  "description": "Change argent"
+}
+
+# History requests
+###
+
+GET http://localhost:3000/history/
+
+###
+
+GET http://localhost:3000/history/1
+
+###
+
+POST http://localhost:3000/history
+Content-Type: application/json
+
+{
+  "transaction_id": 1,
+  "status": "created",
+  "date": "2021-11-17T08:26:53"
+}
+
+###
+
+DELETE http://localhost:3000/history/1
+
+# Operation requests
+
+###
+GET http://localhost:3000/operation/
+
+###
+GET http://localhost:3000/operation/41
+
+###
+POST http://localhost:3000/operation
+Content-Type: application/json
+
+{
+  "type": "CAPTURED",
+  "amount": 50,
+  "status": "CREATED",
+  "date": "2021-11-17T08:26:53",
+  "transactionId": 14
+}
+
+###
+DELETE http://localhost:3000/operation/1
+
+
+###
+PUT http://localhost:3000/operation/45
+Content-Type: application/json
+
+{
+  "status":"PENDING"
+}
+
+###
+PUT http://localhost:3000/operation/45
+Content-Type: application/json
+
+{
+  "status":"CREATED"
+}

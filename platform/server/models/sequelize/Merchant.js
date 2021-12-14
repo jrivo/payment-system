@@ -15,6 +15,7 @@ Merchant.init(
     cancellationUrl: DataTypes.STRING,
     currency: DataTypes.STRING,
     notificationUrl: DataTypes.STRING,
+    status:DataTypes.STRING,
   },
   {
     sequelize: connection,

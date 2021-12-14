@@ -7,9 +7,9 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function OverviewCard() {
   return (
-    <React.Fragment>
+    <>
       <Title>Last Transaction</Title>
       <Typography component="p" variant="h4">
         $1,105.00
@@ -22,6 +22,6 @@ export default function Deposits() {
           View transactions
         </Link>
       </div>
-    </React.Fragment>
+    </>
   );
 }

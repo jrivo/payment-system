@@ -4,7 +4,7 @@ class History extends Model {}
 
 History.init(
     {
-        transaction_id : DataTypes.INTEGER,
+        transactionId: DataTypes.STRING,
         status : DataTypes.STRING,
         date : DataTypes.DATE
     },
