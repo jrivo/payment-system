@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Grid,
   Card,
@@ -14,7 +14,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingPayment from "./LoadingPayment";
 
 const options = [
@@ -26,12 +26,16 @@ const options = [
 ];
 
 const Payment = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [csv, setCsv] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const status = useRef("");
 
   const handleSubmit = (event) => {
     console.log("submit");
@@ -51,7 +55,6 @@ const Payment = () => {
       }),
     })
       .then((res) => {
-        console.log("sdsfds");
         res.json();
       })
       .catch((err) => console.log(err))
@@ -59,11 +62,64 @@ const Payment = () => {
         console.log(res);
         console.log("sent");
         setProcessing(true);
+        function checkStatus() {
+          // let status = "start";
+          fetch("http://localhost:3000/payment/status/" + id)
+            .then((res) => res.json())
+            .then((res) => {
+              // console.log(res);
+              status.current = res.status;
+            })
+            .catch((err) => console.log(err));
+          console.log(status.current);
+          if (status.current === "completed") {
+            setCompleted(true);
+            setProcessing(false);
+            return;
+          }
+          if (status.current === "failed") {
+            setFailed(true);
+            setProcessing(false);
+            return;
+          }
+          setTimeout(checkStatus, 2000);
+        }
+        checkStatus();
+        if (status.current === "completed" || status.current === "failed")
+          navigate("/");
       })
       .catch((err) => console.log(err));
   };
 
-  return processing === true ? (
+  return completed === true ? (
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "green",
+        fontSize: "25px",
+      }}
+    >
+      Operation Approved
+    </div>
+  ) : failed === true ? (
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "green",
+        fontSize: "25px",
+      }}
+    >
+      OPeration Failed
+    </div>
+  ) : processing === true ? (
     <LoadingPayment />
   ) : (
     <Grid
