@@ -1,47 +1,50 @@
 
-# Login
+# Login / Register
 
 ###
-POST http://localhost:3000/user/login
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "email": "amine@gmail.com",
-  "password": "amine"
+  "email": "max4@gmail.com",
+  "password": "max4"
+}
 
+###
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "email": "max4@gmail.com",
+  "password": "max4",
+  "firstName": "max",
+  "lastName": "dd",
+  "merchantId":"2"
 }
 
 
-# Transaction requests
-###
+###With Token
+
+
+### Transaction All
+### User : only same MarchandId
+### Admin : all
 GET http://localhost:3000/transactions/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
-###
-GET http://localhost:3000/payment/status/5e0f6e3d-322d-4f73-bef4-0a0ead132030
+### Transaction Id
+### User : only same MarchandId
+### Admin : all
+GET http://localhost:3000/transactions/2
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
-###
-POST http://localhost:3000/payment
-Content-Type: application/json
-
-{
-    "name": "",
-    "card_number": "",
-    "expiration_date": "",
-    "csv": "",
-    "redirection_id": "67f0e50d-7a52-48c8-bdb3-1468e54077a4"
-}
-
-
-###
-GET http://localhost:3000/transactions/11
-
-###
+### Transaction Create
+## type : can be a payment or a refund
 POST http://localhost:3000/transactions
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "amount": 20,
@@ -50,32 +53,46 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5l
   "client_first_name": "Toto",
   "client_last_name": "Dau",
   "client_email": "max@test.fr",
-  "type": "payment" 
-
+  "type": "payment"
 }
 
-# the "type" in transaction can be a payment or a refund
 
-###
+### Transaction DELETE
 DELETE http://localhost:3000/transactions/1
 
-###
-PUT http://localhost:3000/transactions/11
+
+### Transaction PUT
+PUT http://localhost:3000/transactions/2
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 {
-  "currency": "$",
-  "description": "Change MONEY"
+  "description": "Change MONEY",
+  "currency": "€€€"
 }
 
-# Merchant requests
 
-###
+### Merchant requests
+
+### Merchant All
+### User : Not access
+### Admin : Access
 GET http://localhost:3000/merchants/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
+
+
+
+### Merchant Id
+### User : Only MarchandId
+### Admin : All
+GET http://localhost:3000/merchants/1
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
+
 
 ###
 POST http://localhost:3000/merchants/
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "companyName": "name of the company",
@@ -102,19 +119,19 @@ Content-Type: application/json
 }
 
 
-### 
+###
 DELETE http://localhost:3000/merchants/1
 
-# Credentials requests
 
-# Merchant requests
-
+### Credentials requests
 ###
 GET http://localhost:3000/credentials/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 ###
 POST http://localhost:3000/credentials/
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "clientToken": "the token ",
@@ -132,13 +149,15 @@ Content-Type: application/json
 }
 
 
-### 
+###
 DELETE http://localhost:3000/credentials/1
 
 # History requests
 ###
 
 GET http://localhost:3000/history/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
+
 
 ###
 
@@ -163,7 +182,8 @@ DELETE http://localhost:3000/history/1
 
 ###
 GET http://localhost:3000/operation/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
+
 
 ###
 GET http://localhost:3000/operation/35
@@ -171,13 +191,14 @@ GET http://localhost:3000/operation/35
 ###
 POST http://localhost:3000/operation
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 {
   "type": "CAPTURED",
-  "amount": 50,
+  "amount": 10,
   "status": "CREATED",
   "date": "2021-11-17T08:26:53",
-  "transactionId": 11
+  "transactionId": 2
 }
 
 ###
@@ -193,36 +214,68 @@ Content-Type: application/json
   "status":"completed"
 }
 
-# User requests
+### User requests
 
-###
+### User All
+### User : only same MarchandId
+### Admin : All
 GET http://localhost:3000/user/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
-###
+
+### User All
+### User : only UserId
+### Admin : All
 GET http://localhost:3000/user/1
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
-###
+
+### User All
+### User : Not Access
+### Admin : Access
 POST http://localhost:3000/user
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 {
-  "email": "amine@gmail.com",
-  "password": "amine",
-  "firstName": "amine",
-  "lastName": "zn"
+  "email": "test@gmail.com",
+  "password": "test",
+  "firstName": "test",
+  "lastName": "tt",
+  "merchantId":"2"
 }
-
 
 
 ###
 DELETE http://localhost:3000/user/1
 
-
 ###
 PUT http://localhost:3000/user/1
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDNAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6bnVsbCwiaWF0IjoxNjM5NDkwOTIwfQ.s7wHgKixcgK31kIoDEqaUQndfNU7wlTjJ0-WUHM3MBI
+
 
 {
-  "email":"test1@test.com"
+  "merchantId":"1"
 }
 
+
+###
+GET http://localhost:3000/payment/status/5e0f6e3d-322d-4f73-bef4-0a0ead132030
+
+
+###
+POST http://localhost:3000/payment
+Content-Type: application/json
+
+{
+  "name": "",
+  "card_number": "",
+  "expiration_date": "",
+  "csv": "",
+  "redirection_id": "67f0e50d-7a52-48c8-bdb3-1468e54077a4"
+}
+
+
+###
+GET http://localhost:3000/transactions/11

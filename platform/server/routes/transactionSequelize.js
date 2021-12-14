@@ -6,30 +6,39 @@ const {
   Operation: OperationModel,
 } = require("../models/sequelize/index");
 const router = Router();
+const {User: UserModel} = require("../models/sequelize/index.js");
+
 
 router.get("", (req, res) => {
-  TransactionModel.findAll({
-    where: req.query,
-    include: [
-      { model: MerchantModel, as: "merchant" },
-      { model: OperationModel, as: "operations" },
-    ],
-  }).then((transactions) => {
-    res.json(transactions);
-  });
+    TransactionModel.findAll({
+        where:
+            (req.user.merchantId ? {merchantId : req.user.merchantId} : {} ),
+        include: [
+            { model: MerchantModel, as: "merchant" },
+            { model: OperationModel, as: "operations" },
+        ],
+    }).then((transactions) => {
+        res.json(transactions);
+    });
 });
+
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
   TransactionModel.findByPk(id).then((transaction) => {
     if (transaction) {
-      res.json(transaction);
+        if(transaction.merchantId === req.user.merchantId || !req.user.merchantId) {
+            res.json(transaction);
+        }else {
+            res.sendStatus(401);
+        }
     } else {
       res.sendStatus(404);
     }
   });
 });
 
+// Pas de delete
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
   TransactionModel.destroy({
@@ -80,25 +89,30 @@ router.post("", (req, res) => {
     });
 });
 
+// Pas de Modif
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
   TransactionModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [transaction]]) => {
-      if (transaction) {
-        res.json(transaction);
-      } else {
-        res.sendStatus(404);
-      }
-    })
-    .catch((err) => {
-      if (err.name === "SequelizeValidationError") {
-        res.status(400).json(err);
-      } else {
-        console.error(err);
-        res.sendStatus(500);
-      }
-    });
+      .then(([, [transaction]]) => {
+          if (transaction) {
+              if(transaction.merchantId === req.user.merchantId || !req.user.merchantId) {
+                  res.json(transaction);
+              }else {
+                  res.sendStatus(401);
+              }
+          } else {
+              res.sendStatus(404);
+          }
+      })
+      .catch((err) => {
+        if (err.name === "SequelizeValidationError") {
+          res.status(400).json(err);
+        } else {
+          console.error(err);
+          res.sendStatus(500);
+        }
+      });
 });
 
 module.exports = router;

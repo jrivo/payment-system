@@ -1,5 +1,4 @@
 require("dotenv").config();
-console.log(process.env)
 const Scrapper = require("./utils/Scrapper");
 const Buffer = require("buffer");
 const CurrencyModel = require("./models/mongo/currency");
