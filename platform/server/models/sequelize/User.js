@@ -7,8 +7,7 @@ User.init(
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-      role: DataTypes.STRING
+    lastName: DataTypes.STRING
   },
   {
     sequelize: connection,

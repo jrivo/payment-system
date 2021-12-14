@@ -52,7 +52,8 @@ router.post("", async (req, res) => {
     password: await bcrypt.hash(body.password, salt),
     firstName: body.firstName,
     lastName: body.lastName,
-    role: body.role,
+    merchantId: body.merchantId,
+
   })
     .then((User) => {
       res.status(201).json(User);
@@ -76,7 +77,7 @@ router.post("/login", async (req, res) => {
     );
     if (password_valid) {
       token = jwt.sign(
-        { email: user.email, firstName: user.firstName, role: user.role },
+        { email: user.email, firstName: user.firstName ,merchantId :user.merchantId},
         process.env.SECRET
       );
       res.status(200).json({

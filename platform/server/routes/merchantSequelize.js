@@ -16,7 +16,11 @@ router.get("", (req, res) => {
       { model: CredentialsModel, as: "credentials" },
     ],
   }).then((merchants) => {
-    res.json(merchants);
+    if(!req.user.merchantId) {
+      res.json(merchants);
+    }else {
+      res.sendStatus(401);
+    }
   });
 });
 
@@ -24,7 +28,11 @@ router.get("/:id", (req, res) => {
   const id = req.params.id;
   MerchantModel.findByPk(id).then((merchant) => {
     if (merchant) {
-      res.json(merchant);
+      if(merchant.id === req.user.merchantId || !req.user.merchantId) {
+        res.json(merchant);
+      }else {
+        res.sendStatus(401);
+      }
     } else {
       res.sendStatus(404);
     }
