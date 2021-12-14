@@ -15,6 +15,7 @@ import {
   Divider,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
+import LoadingPayment from "./LoadingPayment";
 
 const options = [
   { label: "Computer Programmer", value: "Computer_programmer" },
@@ -30,28 +31,41 @@ const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [csv, setCsv] = useState("");
+  const [processing, setProcessing] = useState(false);
 
-  useEffect(() => {
+  const handleSubmit = (event) => {
+    console.log("submit");
     console.log(id);
-  }, []);
-
-  const handleSubmit = () => {
-    const url = "";
+    const url = "http://localhost:3000/payment/";
     fetch(url, {
       method: "POST",
-      "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: name,
         card_number: cardNumber,
         expiration_date: expirationDate,
         csv: csv,
+        redirection_id: id,
       }),
     })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log("sdsfds");
+        res.json();
+      })
+      .catch((err) => console.log(err))
+      .then((res) => {
+        console.log(res);
+        console.log("sent");
+        setProcessing(true);
+      })
       .catch((err) => console.log(err));
   };
-  return (
+
+  return processing === true ? (
+    <LoadingPayment />
+  ) : (
     <Grid
       container
       justify="center"
@@ -70,7 +84,7 @@ const Payment = () => {
           <CardHeader title="Payment"></CardHeader>
           <Divider />
 
-          <form>
+          <div>
             <CardContent>
               <Grid item container spacing={1} justify="center">
                 <Grid item xs={12} sm={12} md={12}>
@@ -132,7 +146,7 @@ const Payment = () => {
                 Confirm Payment
               </Button>
             </CardActions>
-          </form>
+          </div>
         </Card>
       </Grid>
     </Grid>

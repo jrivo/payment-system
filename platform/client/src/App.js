@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Context from "./Context";
 import { useMemo, useState } from "react";
 import Payment from "./pages/Payment";
+import LoadingPayment from "./pages/LoadingPayment";
 
 function App() {
   const [user, setUser] = useState({
