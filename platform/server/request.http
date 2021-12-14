@@ -6,25 +6,28 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-  "email": "amine@gmail.com",
-  "password": "amine"
-
+  "email": "max2@gmail.com",
+  "password": "max2"
 }
 
 
-# Transaction requests
+### Transaction requests
 ###
 GET http://localhost:3000/transactions/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5Njk3fQ.Iyq5AYBE8Yf_bcsqrslVtHZwLqQWRMHt18sivfHzmj8
 
 
 ###
-GET http://localhost:3000/transactions/11
+GET http://localhost:3000/transactions/1
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5Njk3fQ.Iyq5AYBE8Yf_bcsqrslVtHZwLqQWRMHt18sivfHzmj8
+
+
 
 ###
+## type : can be a payment or a refund
 POST http://localhost:3000/transactions
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6ImFtaW5lIiwiaWF0IjoxNjM5NDIxMDQ2fQ.z4wJuxCPR07hRyUJxeBOfw4o9azdQca7VsqKi70mAmQ
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "amount": 20,
@@ -33,29 +36,32 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5l
   "client_first_name": "Toto",
   "client_last_name": "Dau",
   "client_email": "max@test.fr",
-  "type": "payment" // can be a payment or a refund
+  "type": "payment"
 }
+
 
 ###
 DELETE http://localhost:3000/transactions/1
 
 ###
-PUT http://localhost:3000/transactions/11
+PUT http://localhost:3000/transactions/2
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "currency": "$",
   "description": "Change MONEY"
 }
 
-# Merchant requests
 
+### Merchant requests
 ###
 GET http://localhost:3000/merchants/
 
 ###
 POST http://localhost:3000/merchants/
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "companyName": "name of the company",
@@ -82,7 +88,7 @@ Content-Type: application/json
 }
 
 
-### 
+###
 DELETE http://localhost:3000/merchants/1
 
 # Credentials requests
@@ -91,10 +97,12 @@ DELETE http://localhost:3000/merchants/1
 
 ###
 GET http://localhost:3000/credentials/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 ###
 POST http://localhost:3000/credentials/
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "clientToken": "the token ",
@@ -112,7 +120,7 @@ Content-Type: application/json
 }
 
 
-### 
+###
 DELETE http://localhost:3000/credentials/1
 
 # History requests
@@ -143,6 +151,8 @@ DELETE http://localhost:3000/history/1
 
 ###
 GET http://localhost:3000/operation/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
+
 
 ###
 GET http://localhost:3000/operation/35
@@ -150,13 +160,14 @@ GET http://localhost:3000/operation/35
 ###
 POST http://localhost:3000/operation
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
 
 {
   "type": "CAPTURED",
   "amount": 50,
   "status": "CREATED",
   "date": "2021-11-17T08:26:53",
-  "transactionId": 11
+  "transactionId": 2
 }
 
 ###
@@ -175,6 +186,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/user/
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
+
 
 ###
 GET http://localhost:3000/user/1
@@ -184,12 +197,12 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-  "email": "amine@gmail.com",
-  "password": "amine",
-  "firstName": "amine",
-  "lastName": "zn"
+  "email": "max2@gmail.com",
+  "password": "max2",
+  "firstName": "max",
+  "lastName": "dd",
+  "role": "user"
 }
-
 
 
 ###
