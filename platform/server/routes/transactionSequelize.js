@@ -5,6 +5,9 @@ const {
   Operation: OperationModel,
 } = require("../models/sequelize/index");
 const router = Router();
+const accessControl = require("../middlewares/accessControl");
+
+
 
 router.get("", (req, res) => {
   TransactionModel.findAll({
@@ -18,15 +21,23 @@ router.get("", (req, res) => {
   });
 });
 
+
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  TransactionModel.findByPk(id).then((transaction) => {
-    if (transaction) {
-      res.json(transaction);
-    } else {
-      res.sendStatus(404);
-    }
-  });
+  const permission = accessControl.can(req.user.role).readAny('transaction');
+
+  if (permission.granted){
+    TransactionModel.findByPk(id).then((transaction) => {
+      if (transaction) {
+        res.json(transaction);
+      } else {
+        res.sendStatus(404);
+      }
+    });
+  }else {
+    // resource is forbidden for this user/role
+    res.status(403).end();
+  }
 });
 
 router.delete("/:id", (req, res) => {
