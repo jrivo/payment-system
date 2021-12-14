@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Context from "./Context";
 import { useMemo, useState } from "react";
+import Payment from "./pages/Payment";
 
 function App() {
   const [user, setUser] = useState({
@@ -27,6 +28,7 @@ function App() {
       <Router>
         <Routes>
           <Route index element={<Dashboard />} />
+          <Route path="/payment" element={<Payment />}></Route>
           <Route path="/payments" element={<Payments />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
