@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { v4: uuidv4 } = require("uuid");
 const {
   Transaction: TransactionModel,
   Merchant: MerchantModel,
@@ -46,13 +47,27 @@ router.delete("/:id", (req, res) => {
 
 router.post("", (req, res) => {
   const body = req.body;
-  TransactionModel.create({ ...body })
-    .then((transaction) => {
-      console.log("------------------");
-      console.log(transaction.dataValues);
-      console.log("******************");
+  const redirectionId = uuidv4(); // generating a unique id for redirection links
 
-      res.status(201).json(transaction);
+  TransactionModel.create(
+    {
+      ...body,
+      redirection_url: process.env.REDIRECTION_URL,
+      redirection_id: redirectionId,
+      operations: [
+        {
+          type: body.type,
+          amount: body.amount,
+          status: "created",
+          date: Date.now(),
+        },
+      ],
+    },
+    { include: [{ model: OperationModel, as: "operations" }] }
+  )
+    .then((transaction) => {
+      const response = transaction;
+      response["redirection_link"] = res.status(201).json(response);
     })
     .catch((err) => {
       if (err.name === "SequelizeValidationError") {

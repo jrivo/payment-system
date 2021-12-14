@@ -32,7 +32,8 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaW5l
   "currency": "€",
   "client_first_name": "Toto",
   "client_last_name": "Dau",
-  "client_email": "max@test.fr"
+  "client_email": "max@test.fr",
+  "type": "payment" // can be a payment or a refund
 }
 
 ###

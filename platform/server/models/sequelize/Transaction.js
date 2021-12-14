@@ -10,9 +10,10 @@ Transaction.init(
     client_first_name: DataTypes.STRING,
     client_last_name: DataTypes.STRING,
     client_email: DataTypes.STRING,
-    status: DataTypes.STRING,
     redirection_url: DataTypes.STRING,
+    redirection_id: DataTypes.STRING,
     notification_url: DataTypes.STRING,
+    notification_id: DataTypes.STRING,
   },
   {
     sequelize: connection,
