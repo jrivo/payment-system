@@ -4,8 +4,10 @@ const app = express() ;
 const url = "https://localhost:3000/transactions";
 const PORT = process.env.PORT || 3001;
 const fetch = require('node-fetch');
+//const payementRouter = require('./routes/paiement')
 
-app.post("/paiement", (res,req) => {
+app.post("/paiement", (req,res) => {
+        console.log(req)
         setTimeout(function () {
             fetch(url, {
                 method: 'POST',
@@ -17,6 +19,9 @@ app.post("/paiement", (res,req) => {
         }, 500)
     }
 )
+
+//app.use("/paiement",payementRouter);
+
 
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
