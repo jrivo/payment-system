@@ -2,4 +2,10 @@ POST http://localhost:3001/paiement
 Content-Type: application/json
 
 {
+    "id": "1",
+    "montant": "100",
+    "date": "2019-01-01",
+    "type": "Carte bancaire",
+    "id_user": "1",
+    "notificationUrl":"http://localhost:3000/boulgiboulga"
 }
