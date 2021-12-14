@@ -61,13 +61,14 @@ router.post("", (req, res) => {
   TransactionModel.create(
     {
       ...body,
-      redirection_url: process.env.REDIRECTION_URL,
-      redirection_id: redirectionId,
+
       operations: [
         {
           type: body.type,
           amount: body.amount,
           status: "created",
+          redirection_url: process.env.REDIRECTION_URL,
+          redirection_id: redirectionId,
           date: Date.now(),
         },
       ],

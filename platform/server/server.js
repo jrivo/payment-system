@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const UserRouter = require("./routes/userSequelize");
 const TransactionRouter = require("./routes/transactionSequelize");
+const PaymentRouter = require("./routes/payment");
 const http = require("http");
 const { options } = require("pg/lib/defaults");
 const MerchantRouter = require("./routes/merchantSequelize");
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 // app.use(express.urlencoded());
 app.use(SecurityRouter);
+app.use("/payment", PaymentRouter);
 
 app.use(verifyJwt());
 app.use("/user", UserRouter);
@@ -44,5 +46,5 @@ app.use("/history", HistoryRouter);
 app.use("/operation", OperationRouter);
 
 app.listen(PORT, () => {
-    console.log("Server is running on port " + PORT);
+  console.log("Server is running on port " + PORT);
 });
