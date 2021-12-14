@@ -9,7 +9,6 @@ const router = Router();
 const {User: UserModel} = require("../models/sequelize/index.js");
 
 
-
 router.get("", (req, res) => {
     TransactionModel.findAll({
         where:

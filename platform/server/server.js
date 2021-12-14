@@ -34,9 +34,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 // app.use(express.urlencoded());
 app.use(SecurityRouter);
-app.use("/user", UserRouter);
 
 app.use(verifyJwt());
+app.use("/user", UserRouter);
 app.use("/transactions", TransactionRouter);
 app.use("/merchants", MerchantRouter);
 app.use("/credentials", CredentialsRouter);

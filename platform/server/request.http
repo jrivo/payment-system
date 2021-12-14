@@ -1,8 +1,8 @@
 
-# Login
+# Login / Register
 
 ###
-POST http://localhost:3000/user/login
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
@@ -10,19 +10,37 @@ Content-Type: application/json
   "password": "max4"
 }
 
+###
+POST http://localhost:3000/register
+Content-Type: application/json
 
-### Transaction requests
-### role = admin ou user
+{
+  "email": "max4@gmail.com",
+  "password": "max4",
+  "firstName": "max",
+  "lastName": "dd",
+  "merchantId":"2"
+}
+
+
+###With Token
+
+
+### Transaction All
+### User : only same MarchandId
+### Admin : all
 GET http://localhost:3000/transactions/
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
-###
+### Transaction Id
+### User : only same MarchandId
+### Admin : all
 GET http://localhost:3000/transactions/2
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
-###
+### Transaction Create
 ## type : can be a payment or a refund
 POST http://localhost:3000/transactions
 Content-Type: application/json
@@ -39,10 +57,10 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJA
 }
 
 
-###
+### Transaction DELETE
 DELETE http://localhost:3000/transactions/1
 
-###
+### Transaction PUT
 PUT http://localhost:3000/transactions/2
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
@@ -54,13 +72,18 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRA
 
 
 ### Merchant requests
-###
+
+### Merchant All
+### User : Not access
+### Admin : Access
 GET http://localhost:3000/merchants/
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
 
-###
+### Merchant Id
+### User : Only MarchandId
+### Admin : All
 GET http://localhost:3000/merchants/1
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
@@ -167,11 +190,11 @@ GET http://localhost:3000/operation/35
 ###
 POST http://localhost:3000/operation
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 {
   "type": "CAPTURED",
-  "amount": 50,
+  "amount": 10,
   "status": "CREATED",
   "date": "2021-11-17T08:26:53",
   "transactionId": 2
@@ -191,30 +214,38 @@ Content-Type: application/json
 
 ### User requests
 
-###
+### User All
+### User : only same MarchandId
+### Admin : All
 GET http://localhost:3000/user/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwiaWF0IjoxNjM5NDc5MDE4fQ.r3zAAAk2yhlTNvOl7WMILxwfOYHmYtpIBA2Ft2atrg4
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 
-###
+### User All
+### User : only UserId
+### Admin : All
 GET http://localhost:3000/user/1
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
-###
+
+### User All
+### User : Not Access
+### Admin : Access
 POST http://localhost:3000/user
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heDRAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoibWF4IiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNjM5NDkxMTQ4fQ.qGXdMDjsBHLNqex82HRePewZcrf2DTEvAJkJTAHPEHU
 
 {
-  "email": "max4@gmail.com",
-  "password": "max4",
-  "firstName": "max",
-  "lastName": "dd",
-  "merchantId":"1"
+  "email": "test@gmail.com",
+  "password": "test",
+  "firstName": "test",
+  "lastName": "tt",
+  "merchantId":"2"
 }
 
 
 ###
 DELETE http://localhost:3000/user/1
-
 
 ###
 PUT http://localhost:3000/user/1
