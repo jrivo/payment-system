@@ -5,11 +5,16 @@ const url = "https://localhost:3000/transactions";
 const PORT = process.env.PORT || 3001;
 const fetch = require('node-fetch');
 //const payementRouter = require('./routes/paiement')
+const cors = require('cors');
+const bodyParser = require('body-parser') ;
+
+app.use(express.json());
+app.use(bodyParser.json());
 
 app.post("/paiement", (req,res) => {
-        console.log(req)
+        let url_notif = req.body ;
         setTimeout(function () {
-            fetch(url, {
+            fetch(url_notif, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
