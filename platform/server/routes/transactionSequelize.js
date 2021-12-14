@@ -83,21 +83,21 @@ router.put("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
   TransactionModel.update(body, { where: { id: id }, returning: true })
-    .then(([, [transaction]]) => {
-      if (transaction) {
-        res.json(transaction);
-      } else {
-        res.sendStatus(404);
-      }
-    })
-    .catch((err) => {
-      if (err.name === "SequelizeValidationError") {
-        res.status(400).json(err);
-      } else {
-        console.error(err);
-        res.sendStatus(500);
-      }
-    });
+      .then(([, [transaction]]) => {
+        if (transaction) {
+          res.json(transaction);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch((err) => {
+        if (err.name === "SequelizeValidationError") {
+          res.status(400).json(err);
+        } else {
+          console.error(err);
+          res.sendStatus(500);
+        }
+      });
 });
 
 module.exports = router;

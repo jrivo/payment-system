@@ -10,7 +10,6 @@ router.get("", (req, res) => {
   HistoryModel.findAll({
     where: req.query,
     include: [
-      { model: TransactionModel, as: "transaction" },
       { model: OperationModel, as: "operation" },
     ],
   }).then((history) => {
