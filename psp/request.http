@@ -2,4 +2,5 @@ POST http://localhost:3001/paiement
 Content-Type: application/json
 
 {
+  "test" : "zgheqh"
 }
