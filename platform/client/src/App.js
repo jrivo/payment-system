@@ -28,7 +28,7 @@ function App() {
       <Router>
         <Routes>
           <Route index element={<Dashboard />} />
-          <Route path="/payment" element={<Payment />}></Route>
+          <Route path="/payment/:id" element={<Payment />}></Route>
           <Route path="/payments" element={<Payments />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
